@@ -4,17 +4,10 @@ import { Features } from "@/components/features";
 import { AppDownload } from "@/components/appDownload";
 import { Footer } from "@/components/footer";
 
-const App = () => {
-  const scrollToForm = () => {
-    const formElement = document.getElementById("profile-form");
-    if (formElement) {
-      formElement.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
+const Index = () => {
   return (
-    <div className="min-h-screen">
-      <Hero onGetStarted={scrollToForm} />
+    <div className=" min-h-screen bg-white">
+      <Hero />
       <Features />
       <ProfileForm />
       <AppDownload />
@@ -23,4 +16,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Index;

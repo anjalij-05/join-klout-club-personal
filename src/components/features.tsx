@@ -1,39 +1,43 @@
 import { Users, BarChart3, Target, Download } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const features = [
   {
     icon: BarChart3,
     title: "Thought Leadership Score",
-    description: "Get a comprehensive score based on your professional influence, content quality, and industry engagement.",
+    description:
+      "Get a comprehensive score based on your professional influence, content quality, and industry engagement.",
   },
   {
     icon: Users,
     title: "Industry Comparison",
-    description: "Compare your performance with other business professionals from your industry and city.",
+    description:
+      "Compare your performance with other business professionals from your industry and city.",
   },
   {
     icon: Target,
     title: "Track Your Growth",
-    description: "Monitor your professional development and identify areas to strengthen your thought leadership.",
+    description:
+      "Monitor your professional development and identify areas to strengthen your thought leadership.",
   },
   {
     icon: Download,
     title: "Mobile App Access",
-    description: "Download the Klout Club app to access advanced features, real-time updates, and networking opportunities.",
+    description:
+      "Download the Klout Club app to access advanced features, real-time updates, and networking opportunities.",
   },
 ];
 
 export const Features = () => {
   return (
-    <section className="py-20 px-4 bg-muted/30">
-      <div className="container mx-auto max-w-6xl">
+    <section className="py-15 px-4 bg-gray-50">
+      <div className=" mx-auto max-w-full">
         <div className="text-center mb-16 space-y-4">
-          <h2 className="text-4xl md:text-5xl font-bold">
-            Why Join <span className="text-primary">Klout Club?</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+            Why Join <span className="text-purple-600">Klout Club?</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Elevate your professional presence and unlock insights into your industry influence
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Elevate your professional presence and unlock insights into your
+            industry influence
           </p>
         </div>
 
@@ -41,22 +45,20 @@ export const Features = () => {
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (
-              <Card 
-                key={index} 
-                className="border-primary/10 hover:shadow-[var(--shadow-premium)] transition-all duration-300 hover:scale-[1.02]"
+              <div
+                key={index}
+                className="bg-white rounded-2xl border border-purple-100 p-8 hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] hover:border-purple-200"
               >
-                <CardHeader>
-                  <div className="w-14 h-14 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4">
-                    <Icon className="w-7 h-7 text-primary-foreground" />
-                  </div>
-                  <CardTitle className="text-2xl">{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-base leading-relaxed">
-                    {feature.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
+                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center mb-6">
+                  <Icon className="w-7 h-7 text-white" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-base text-gray-600 leading-relaxed">
+                  {feature.description}
+                </p>
+              </div>
             );
           })}
         </div>
