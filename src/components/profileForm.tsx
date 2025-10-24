@@ -1,5 +1,45 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { Award, TrendingUp } from "lucide-react";
+
+// Memoized FormField to prevent re-renders
+const FormField = memo(
+  ({
+    label,
+    name,
+    type = "text",
+    placeholder,
+    required = false,
+    value,
+    onChange,
+  }: {
+    label: string;
+    name: string;
+    type?: string;
+    placeholder: string;
+    required?: boolean;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  }) => (
+    <div className="space-y-2">
+      <label
+        htmlFor={name}
+        className="block text-base font-medium text-gray-700"
+      >
+        {label} {required && <span className="text-red-500">*</span>}
+      </label>
+      <input
+        id={name}
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        required={required}
+        className="w-full h-12 px-4 rounded-lg border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition-all"
+      />
+    </div>
+  )
+);
 
 export const ProfileForm = () => {
   const [formData, setFormData] = useState({
@@ -31,44 +71,12 @@ export const ProfileForm = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
-
-  const FormField = ({
-    label,
-    name,
-    type = "text",
-    placeholder,
-    required = false,
-  }: {
-    label: string;
-    name: string;
-    type?: string;
-    placeholder: string;
-    required?: boolean;
-  }) => (
-    <div className="space-y-2">
-      <label
-        htmlFor={name}
-        className="block text-base font-medium text-gray-700"
-      >
-        {label} {required && <span className="text-red-500">*</span>}
-      </label>
-      <input
-        id={name}
-        name={name}
-        type={type}
-        placeholder={placeholder}
-        value={formData[name as keyof typeof formData]}
-        onChange={handleChange}
-        required={required}
-        className="w-full h-12 px-4 rounded-lg border border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 outline-none transition-all"
-      />
-    </div>
-  );
 
   return (
     <section
@@ -99,7 +107,7 @@ export const ProfileForm = () => {
             </div>
           </div>
 
-          <div className="px-6 pb-12">
+          <form onSubmit={handleSubmit} className="px-6 pb-12">
             <div className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <FormField
@@ -107,6 +115,8 @@ export const ProfileForm = () => {
                   name="fullName"
                   placeholder="John Doe"
                   required
+                  value={formData.fullName}
+                  onChange={handleChange}
                 />
                 <FormField
                   label="Email"
@@ -114,53 +124,66 @@ export const ProfileForm = () => {
                   type="email"
                   placeholder="john@company.com"
                   required
+                  value={formData.email}
+                  onChange={handleChange}
                 />
                 <FormField
                   label="Designation"
                   name="designation"
                   placeholder="Senior Product Manager"
                   required
+                  value={formData.designation}
+                  onChange={handleChange}
                 />
                 <FormField
                   label="Education"
                   name="education"
                   placeholder="MBA, Harvard Business School"
+                  value={formData.education}
+                  onChange={handleChange}
                 />
                 <FormField
                   label="Total Experience"
                   name="experience"
                   placeholder="8 years"
+                  value={formData.experience}
+                  onChange={handleChange}
                 />
                 <FormField
                   label="LinkedIn URL"
                   name="linkedinUrl"
                   type="url"
                   placeholder="https://linkedin.com/in/johndoe"
+                  value={formData.linkedinUrl}
+                  onChange={handleChange}
                 />
                 <FormField
                   label="Twitter URL"
                   name="twitterUrl"
                   type="url"
                   placeholder="https://twitter.com/johndoe"
+                  value={formData.twitterUrl}
+                  onChange={handleChange}
                 />
                 <FormField
                   label="Skills"
                   name="skills"
                   placeholder="Product Strategy, Team Leadership, Analytics"
+                  value={formData.skills}
+                  onChange={handleChange}
                 />
               </div>
 
               <button
-                onClick={handleSubmit}
+                type="submit"
                 className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-lg font-semibold h-14 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-[1.02] mt-8"
               >
                 Calculate My Thought Leadership Score
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </section>
   );
 };
-
